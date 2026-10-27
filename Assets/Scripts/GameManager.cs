@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartDialogueSequence(toRead);
+        //StartDialogueSequence(toRead);
     }
 
     public void AddKey()
