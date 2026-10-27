@@ -66,5 +66,20 @@ public class ShadowController : MonoBehaviour
             Puzzle pz = collision.GetComponent<Puzzle>();
             pz.ActivateMechanism();
         }
+        if (collision.CompareTag("Button"))
+        {
+            Puzzle pz = collision.GetComponent<Puzzle>();
+            pz.onButton = true;
+            pz.ActivateMechanismButton();
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Button"))
+        {
+            Puzzle pz = collision.GetComponent<Puzzle>();
+            pz.onButton = false;
+            pz.ActivateMechanismButton();
+        }
     }
 }

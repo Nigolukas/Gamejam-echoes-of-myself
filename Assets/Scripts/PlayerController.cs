@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 8f;
+    [SerializeField] private Transform RespawnPoint;
 
     [Header("Ground check")]
     [SerializeField] private Transform groundCheck;
@@ -19,14 +20,16 @@ public class PlayerController : MonoBehaviour
     private PlayerInput playerInput;
     private Rigidbody2D rb;
 
+    
+
     [Header("Shadow")]
     [SerializeField] private GameObject shadowPrefab;
     [SerializeField] private float recallDuration = 0.5f;
 
     [SerializeField] private float swapDuration = 0.4f;
     private bool isSwapping = false;
-    private GameObject activeShadow;
-    private bool hasControl = true;
+    public GameObject activeShadow;
+    public bool hasControl = true;
     private bool isRecalling = false;
 
 
@@ -215,6 +218,29 @@ public class PlayerController : MonoBehaviour
         {
             Puzzle pz = collision.GetComponent<Puzzle>();
             pz.ActivateMechanism();
+        }
+        if (collision.CompareTag("Button"))
+        {
+            Puzzle pz = collision.GetComponent<Puzzle>();
+            pz.onButton = true;
+            pz.ActivateMechanismButton();
+        }
+        if (collision.CompareTag("Portal"))
+        {
+            LoopManager loopmanager = FindAnyObjectByType<LoopManager>();
+            loopmanager.RestartLoop();
+            transform.position = RespawnPoint.position;
+
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Button"))
+        {
+            Puzzle pz = collision.GetComponent<Puzzle>();
+            pz.onButton = false;
+            pz.ActivateMechanismButton(); 
         }
     }
 }
