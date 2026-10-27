@@ -17,15 +17,24 @@ public class GameManager : MonoBehaviour
 
     private Coroutine typingRoutine;
 
-    private void Start()
+    private CameraFocus cameraFocus;
+    private Transform focusObject;
+    private int focusLine = -1;
+
+    private void Awake()
     {
+        cameraFocus = FindAnyObjectByType<CameraFocus>();
         //StartDialogueSequence(toRead);
     }
 
-    public void AddKey()
+    public void AddKey(GameObject key)
     {
         keys++;
         keyText.text = "" + keys;
+        TriggerDialogue keysD = key.GetComponent<TriggerDialogue>();
+        if(keysD != null)
+            keysD.Interact();
+
     }
 
     public int GetKey()
@@ -73,14 +82,28 @@ public class GameManager : MonoBehaviour
         typingRoutine = StartCoroutine(TypeText());
     }
 
-    public void StartDialogueSequence(string[] lines)
+    public void StartDialogueSequence(string[] lines, Transform focusTarget = null, int focusLineIndex = -1)
     {
         if (inSequence || lines == null || lines.Length == 0) return;
 
         toRead = lines;
         currentLine = 0;
         inSequence = true;
+        focusObject = focusTarget;
+        focusLine = focusLineIndex;
+
         SetDialogo(toRead[0]);
+        UpdateCameraFocus();
+    }
+
+    private void UpdateCameraFocus()
+    {
+        if (cameraFocus == null) return;
+
+        if (focusObject != null && currentLine == focusLine)
+            cameraFocus.FocusOn(focusObject);
+        else
+            cameraFocus.ReturnToPlayer();
     }
 
     public void SetNextDialogue()
@@ -92,6 +115,7 @@ public class GameManager : MonoBehaviour
             if (currentLine < toRead.Length)
             {
                 SetDialogo(toRead[currentLine]);
+                UpdateCameraFocus();
                 return;
             }
         }
@@ -103,6 +127,10 @@ public class GameManager : MonoBehaviour
     {
         inSequence = false;
         Time.timeScale = 1;
+
+        if (cameraFocus != null) cameraFocus.ReturnToPlayer();
+        focusObject = null;
+        focusLine = -1;
 
         if (typingRoutine != null)
         {

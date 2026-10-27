@@ -88,9 +88,12 @@ public class Puzzle : MonoBehaviour
 
             platform.transform.position = Vector3.MoveTowards(
                 platform.transform.position, platformTarget, speed * Time.deltaTime);
+            if(rotation1 != null  && rotation2 != null)
+            {
+                rotation1.transform.Rotate(0f, 0f, rotationSpeed * dir * Time.deltaTime);
+                rotation2.transform.Rotate(0f, 0f, -rotationSpeed * dir * Time.deltaTime);
+            }
 
-            rotation1.transform.Rotate(0f, 0f, rotationSpeed * dir * Time.deltaTime);
-            rotation2.transform.Rotate(0f, 0f, -rotationSpeed * dir * Time.deltaTime);
 
             yield return null;
         }

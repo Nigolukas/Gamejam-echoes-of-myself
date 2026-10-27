@@ -30,7 +30,12 @@ public class ShadowController : MonoBehaviour
 
     void Update()
     {
-        if (playerInput == null || Time.timeScale == 0)
+        if (transform.position.y < -10 )
+        {
+            PlayerController playerC = FindAnyObjectByType<PlayerController>();
+            playerC.RecallS(); 
+        }
+            if (playerInput == null || Time.timeScale == 0)
         {
             moveInput = Vector2.zero;
             return;
@@ -42,6 +47,7 @@ public class ShadowController : MonoBehaviour
         {
             jumpRequested = true;
         }
+
     }
 
     void FixedUpdate()
