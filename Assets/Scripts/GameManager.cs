@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float typeSpeed = 0.03f; // segundos por letra
 
     [SerializeField] private string[] toRead;
+
+    public bool onDialogue = false;
     private int currentLine = 0;
     private bool inSequence = false;
 
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour
 
     public void SetDialogo(string text)
     {
+        onDialogue = true;
         if (DialogueObject.activeSelf && DialogueText.text == text) return;
 
         DialogueObject.SetActive(true);
@@ -140,6 +143,7 @@ public class GameManager : MonoBehaviour
         }
         if (typingAudio != null) typingAudio.Stop();
         DialogueObject.SetActive(false);
+        onDialogue = false;
     }
 
     IEnumerator TypeText()
