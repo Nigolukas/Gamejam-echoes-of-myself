@@ -2522,7 +2522,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sallto
+  m_text: Salto
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fe2adb1d236d1164caca724193808684, type: 2}
   m_sharedMaterial: {fileID: -809603846160863099, guid: fe2adb1d236d1164caca724193808684, type: 2}
