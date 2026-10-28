@@ -9,6 +9,7 @@ TagManager:
   - Puzzle
   - Button
   - Portal
+  - Shadow
   layers:
   - Default
   - TransparentFX
