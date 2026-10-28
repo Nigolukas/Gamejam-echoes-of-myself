@@ -84,10 +84,10 @@ Bajo esta capa de humor se encuentra la pregunta central de la historia:
 
 Proyecto de desarrollo de videojuegos.
 Hecho por: 
-Nicolas Ruiz
-Dhana Samantha Aragon
-Stephania Gonzalez
-Jhon Alejandro Vera
+- Nicolas Ruiz
+- Dhana Samantha Aragon
+- Stephania Gonzalez
+- Jhon Alejandro Vera
 
 
 *En el Limbo, elegir una puerta es fácil. Lo difícil es descubrir cuál te permitirá seguir adelante.*
