@@ -928,7 +928,7 @@ GameObject:
   - component: {fileID: 81828692}
   - component: {fileID: 81828694}
   - component: {fileID: 81828693}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: trigger No way
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1680,7 +1680,7 @@ GameObject:
   - component: {fileID: 117058237}
   - component: {fileID: 117058236}
   - component: {fileID: 117058238}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: triggerpUERTA?
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5461,7 +5461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 478409143}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: trigger bucle 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9890,7 +9890,7 @@ GameObject:
   - component: {fileID: 895089246}
   - component: {fileID: 895089248}
   - component: {fileID: 895089247}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: trigger  activar antes de tiempo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13677,7 +13677,7 @@ GameObject:
   - component: {fileID: 1277522467}
   - component: {fileID: 1277522468}
   - component: {fileID: 1277522469}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: triggerConveniente
   m_TagString: Button
   m_Icon: {fileID: 0}
@@ -14588,7 +14588,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1381733864}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: platform move point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16477,7 +16477,7 @@ GameObject:
   - component: {fileID: 1589901957}
   - component: {fileID: 1589901959}
   - component: {fileID: 1589901958}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: plataforma move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16954,7 +16954,7 @@ GameObject:
   - component: {fileID: 1648132243}
   - component: {fileID: 1648132245}
   - component: {fileID: 1648132246}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: triggerConveniente Dialogo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
