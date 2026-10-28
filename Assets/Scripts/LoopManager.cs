@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using System.Threading;
 using UnityEngine;
 
@@ -9,8 +10,10 @@ public class DialogueLines
 
 public class LoopManager : MonoBehaviour
 {
-    [SerializeField] private int loop = -1;
+    public int keysGot = 0;
+    [SerializeField] private int loop = 0;
     [SerializeField] private GameObject[] loopObjects;
+    [SerializeField] private GameObject[] deleteLoopObjects;
     [SerializeField] private DialogueLines[] linesLoop;
 
     GameManager gameManager;
@@ -30,7 +33,19 @@ public class LoopManager : MonoBehaviour
     {
         loop++;
         Debug.Log("loop: " + loop);
-        loopObjects[loop].SetActive(true);
-        gameManager.StartDialogueSequence(linesLoop[loop].lines);
+        if(loop < loopObjects.Length && keysGot >= 1)
+        {
+            loopObjects[loop].SetActive(true);
+            if(deleteLoopObjects[loop] != null)
+                deleteLoopObjects[loop].SetActive(false);
+            gameManager.StartDialogueSequence(linesLoop[loop].lines);
+            keysGot = 0;
+        }
+        else
+        {
+            loop--;
+            gameManager.StartDialogueSequence(linesLoop[loop].lines);
+        }
+
     }
 }

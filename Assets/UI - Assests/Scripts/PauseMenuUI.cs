@@ -14,11 +14,15 @@ public class PauseMenuUI : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject confirmationPanel;
     [SerializeField] private GameObject controlsPanel;
+    GameManager gameManager;
 
     // Actualizar el nombre de la escena correcta
     [SerializeField] private string gameplaySceneName = "SampleScene";
 
-
+    private void Awake()
+    {
+        gameManager = FindAnyObjectByType<GameManager>();
+    }
     private void Start()
     {
         // Restablece el tiempo normal
@@ -69,6 +73,8 @@ public class PauseMenuUI : MonoBehaviour
     public void PauseGame()
     {
         // Pausa
+        if (gameManager.onDialogue == true) return;
+
         isPaused = true;
         
         pausePanel.SetActive(true);
