@@ -1056,7 +1056,7 @@ MonoBehaviour:
   fadeImage: {fileID: 1575610674}
   fadeDuration: 3
   zoomAmount: 2
-  nextScene: MainMenu
+  nextScene: Creditos
 --- !u!1 &321978474
 GameObject:
   m_ObjectHideFlags: 0
@@ -2219,11 +2219,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 3430729593323144389, guid: 5407b746defba4d4bb3c61d9bfbd1635, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: ac5f14c6db90125468c0a2bfde33eca3, type: 3}
+  m_Resource: {fileID: 8300000, guid: b7870ac3ab95dde48832a5433a5e489b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.354
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -4933,6 +4933,7 @@ MonoBehaviour:
   pausePanel: {fileID: 877160612}
   confirmationPanel: {fileID: 1540490073}
   controlsPanel: {fileID: 586187405}
+  mainMenuConfirmationPanel: {fileID: 0}
   gameplaySceneName: Sprites Implemented
 --- !u!4 &1394737900
 Transform:

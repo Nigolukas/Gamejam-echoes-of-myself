@@ -49,6 +49,6 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Sprites Implemented");
+        SceneManager.LoadScene("Gameplay");
     }
 }
