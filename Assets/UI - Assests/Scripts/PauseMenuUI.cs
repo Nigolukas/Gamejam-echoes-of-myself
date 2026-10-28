@@ -14,6 +14,7 @@ public class PauseMenuUI : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject confirmationPanel;
     [SerializeField] private GameObject controlsPanel;
+    [SerializeField] private GameObject mainMenuConfirmationPanel;
     GameManager gameManager;
 
     // Actualizar el nombre de la escena correcta
@@ -69,6 +70,16 @@ public class PauseMenuUI : MonoBehaviour
         SceneManager.LoadScene(gameplaySceneName);
     }
 
+    // Regresa al menú principal
+    public void ReturnToMainMenu()
+    {
+        // Restablece el tiempo para que el menú no quede pausado
+        Time.timeScale = 1f;
+
+        // Carga la escena del main menu
+        SceneManager.LoadScene("MainMenu");
+    }
+
     // Abre el menú de pausa y detiene el tiempo del juego
     public void PauseGame()
     {
@@ -97,6 +108,20 @@ public class PauseMenuUI : MonoBehaviour
         //Oculta el menú de pausa
         pausePanel.SetActive(false);
         pauseBackground.SetActive(false);
+    }
+
+    // Confirmación para volver al menú pirncipal
+    public void ShowMainMenuConfirmation()
+    {
+        pausePanel.SetActive(false);
+        mainMenuConfirmationPanel.SetActive(true);
+    }
+
+    // Vuelve a pausa desde confirmación
+    public void CancelMainMenuConfirmation()
+    {
+        mainMenuConfirmationPanel.SetActive(false);
+        pausePanel.SetActive(true);
     }
 
     private void Update()
