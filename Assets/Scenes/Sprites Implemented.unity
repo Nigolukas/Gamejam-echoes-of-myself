@@ -8993,6 +8993,7 @@ MonoBehaviour:
   platformEndPoint: {fileID: 707941883}
   focusDelay: 0.6
   focusHold: 0.5
+  MechanismSound: {fileID: 0}
 --- !u!95 &976831641
 Animator:
   serializedVersion: 7
@@ -9794,6 +9795,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Door
   keysNeeded: 3
   portal: {fileID: 1152039746}
+  DoorSound: {fileID: 0}
 --- !u!212 &1108620686
 SpriteRenderer:
   serializedVersion: 2
@@ -11352,6 +11354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Door
   keysNeeded: 1
   portal: {fileID: 97651396}
+  DoorSound: {fileID: 0}
 --- !u!114 &1270865580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11476,6 +11479,7 @@ MonoBehaviour:
   platformEndPoint: {fileID: 1381733864}
   focusDelay: 0.6
   focusHold: 0.5
+  MechanismSound: {fileID: 0}
 --- !u!1 &1280129563
 GameObject:
   m_ObjectHideFlags: 0
@@ -14266,6 +14270,11 @@ MonoBehaviour:
   swapDuration: 0.4
   activeShadow: {fileID: 0}
   hasControl: 1
+  keySound: {fileID: 0}
+  stepsSound: {fileID: 0}
+  teleportSound: {fileID: 0}
+  changeSound: {fileID: 0}
+  invokeSound: {fileID: 0}
 --- !u!95 &1541099046
 Animator:
   serializedVersion: 7
@@ -16640,6 +16649,7 @@ MonoBehaviour:
   platformEndPoint: {fileID: 1606993863}
   focusDelay: 0.6
   focusHold: 0.5
+  MechanismSound: {fileID: 0}
 --- !u!61 &1730149195
 BoxCollider2D:
   m_ObjectHideFlags: 0

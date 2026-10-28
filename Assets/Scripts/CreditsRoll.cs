@@ -96,7 +96,7 @@ public class CreditsRoll : MonoBehaviour
 
     IEnumerator Run()
     {
-        yield return null; // espera un frame para que el Canvas calcule su tamaño
+        //yield return null; // espera un frame para que el Canvas calcule su tamaño
 
         float canvasH = canvasRect.rect.height;
         float textH = textRect.rect.height;
