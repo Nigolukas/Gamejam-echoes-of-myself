@@ -20,11 +20,20 @@ public class Puzzle : MonoBehaviour
     [SerializeField] private Transform keyEndPoint;
     [SerializeField] private Transform platformEndPoint;
 
+    [Header("Cámara")]
+    [SerializeField] private float focusDelay = 0.6f;  
+    [SerializeField] private float focusHold = 0.5f;   
+
+    private CameraFocus cameraFocus;
     private bool atEnd = false;
     private bool isMoving = false;
 
     public bool onButton = false;
 
+    private void Awake()
+    {
+        cameraFocus = FindAnyObjectByType<CameraFocus>();
+    }
     void Start()
     {
         platformStart = platform.transform.position;
@@ -44,16 +53,24 @@ public class Puzzle : MonoBehaviour
 
     IEnumerator MovePlatform()
     {
-        if(chain != null)
+        // La cámara va hacia la plataforma y espera a que llegue
+        if (cameraFocus != null)
+        {
+            cameraFocus.FocusOn(platform.transform);
+            yield return new WaitForSeconds(focusDelay);
+        }
+
+        if (chain != null)
             chain.SetActive(true);
+
         Vector3 platformTarget = atEnd ? platformStart : platformEnd;
         Vector3 keyTarget = atEnd ? keyStart : keyEnd;
-        float dir = atEnd ? -1f : 1f;  
+        float dir = atEnd ? -1f : 1f;
 
         while (platform.transform.position != platformTarget)
         {
             platform.transform.position = Vector3.MoveTowards(platform.transform.position, platformTarget, speed * Time.deltaTime);
-            if(key != null)
+            if (key != null)
                 key.transform.position = Vector3.MoveTowards(key.transform.position, keyTarget, speed * Time.deltaTime);
 
             rotation1.transform.Rotate(0f, 0f, rotationSpeed * dir * Time.deltaTime);
@@ -61,9 +78,18 @@ public class Puzzle : MonoBehaviour
 
             yield return null;
         }
+
         if (atEnd == true && chain != null)
             chain.SetActive(false);
         atEnd = !atEnd;
+
+        // Se queda un momento y vuelve al jugador
+        if (cameraFocus != null)
+        {
+            yield return new WaitForSeconds(focusHold);
+            cameraFocus.ReturnToPlayer();
+        }
+
         isMoving = false;
     }
 

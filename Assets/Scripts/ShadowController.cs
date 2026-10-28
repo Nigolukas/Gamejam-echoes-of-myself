@@ -11,7 +11,8 @@ public class ShadowController : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.15f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask playerLayer;
-
+    private SpriteRenderer sr;
+    private Animator animator;
     private PlayerInput playerInput;
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -20,6 +21,8 @@ public class ShadowController : MonoBehaviour
 
     void Awake()
     {
+        sr = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -42,6 +45,10 @@ public class ShadowController : MonoBehaviour
         }
 
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
+        animator.SetFloat("SpeedX", Mathf.Abs(moveInput.x));
+
+        if (moveInput.x > 0.2f) sr.flipX = false;
+        else if (moveInput.x < -0.2f) sr.flipX = true;
 
         if (playerInput.actions["Jump"].WasPressedThisFrame() || moveInput.y > 0.2f)
         {

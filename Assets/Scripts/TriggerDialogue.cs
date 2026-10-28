@@ -6,6 +6,7 @@ public class TriggerDialogue : MonoBehaviour
     private bool alreadyPlayed;
     [SerializeField] private bool autocall = false;
     [SerializeField] private bool specialCall = false;
+    [SerializeField] private bool shadowCan = false;
     private int jumps = 0;
     [SerializeField] private bool callOnce;
     private bool called;
@@ -48,7 +49,7 @@ public class TriggerDialogue : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && shadowCan == false)
         {
             if (autocall == true)
             {
@@ -62,6 +63,10 @@ public class TriggerDialogue : MonoBehaviour
             {
                 jumps++;
             }
+        }
+        if (collision.CompareTag("Shadow") && shadowCan && autocall == true)
+        {
+            Interact();
         }
 
     }
