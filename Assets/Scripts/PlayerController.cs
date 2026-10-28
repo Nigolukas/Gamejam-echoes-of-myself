@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.15f;
     [SerializeField] private LayerMask groundLayer;
 
+    private float prevMoveY;
+
     private SpriteRenderer sr;
     private Animator animator;
 
@@ -39,6 +41,15 @@ public class PlayerController : MonoBehaviour
     public bool hasControl = true;
     private bool isRecalling = false;
 
+    [Header("Sound")]
+
+    [SerializeField] private AudioSource keySound;
+    [SerializeField] private AudioSource stepsSound;
+    [SerializeField] private AudioSource teleportSound;
+
+    [SerializeField] private AudioSource changeSound;
+    [SerializeField] private AudioSource invokeSound;
+
 
     void Awake()
     {
@@ -56,8 +67,16 @@ public class PlayerController : MonoBehaviour
     {
         if (transform.position.y < -10 && !isTeleporting)
         {
+            bool shadowHadControl = !hasControl;  
+
             StartCoroutine(TeleportTransition(
-                afterFade: () => gameManager.SetDialogo("Es broma, el limbo, ¿recuerdas?")
+                afterFade: () =>
+                {
+                    if (shadowHadControl)
+                        gameManager.SetDialogo("Vaya... A veces no puedes confiar ni en tu sombra ¿no?");
+                    else
+                        gameManager.SetDialogo("Es broma, el limbo, ¿recuerdas?");
+                }
             ));
         }
 
@@ -66,18 +85,21 @@ public class PlayerController : MonoBehaviour
         if (Time.timeScale == 0)
         {
             moveInput = Vector2.zero;
+            if (stepsSound.isPlaying) stepsSound.Stop();
             return;
         }
 
         if (playerInput.actions["Duplicate"].WasPressedThisFrame() && !isRecalling && !isSwapping)
         {
+            invokeSound.Play();
             if (activeShadow == null) SpawnShadow();
             else StartCoroutine(RecallShadow());
         }
 
         if (playerInput.actions["Change"].WasPressedThisFrame() && activeShadow != null && !isRecalling && !isSwapping)
         {
-           StartCoroutine(SwapWithShadow());
+            changeSound.Play();
+            StartCoroutine(SwapWithShadow());
         }
 
         if (!hasControl)
@@ -89,10 +111,14 @@ public class PlayerController : MonoBehaviour
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
         animator.SetFloat("SpeedX", Mathf.Abs(moveInput.x));
 
-        if (moveInput.x > 0.2f) sr.flipX = false;
+
+            if (moveInput.x > 0.2f) sr.flipX = false;
         else if (moveInput.x < -0.2f) sr.flipX = true;
 
-        if (playerInput.actions["Jump"].WasPressedThisFrame() || moveInput.y > 0.2f)
+        bool pressedUp = moveInput.y > 0.2f && prevMoveY <= 0.2f;
+        prevMoveY = moveInput.y;
+
+        if (playerInput.actions["Jump"].WasPressedThisFrame() || pressedUp)
         {
             jumpRequested = true;
         }
@@ -213,7 +239,10 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
+        if (!isGrounded)
+        {
+            stepsSound.Stop();
+        }
         float targetX = Mathf.Abs(moveInput.x) > 0.2f ? moveInput.x * speed : 0f;
         rb.linearVelocity = new Vector2(targetX, rb.linearVelocity.y);
 
@@ -221,6 +250,20 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             animator.SetTrigger("Jump");
+        }
+        bool walking = Mathf.Abs(moveInput.x) > 0.2f && isGrounded;
+
+        if (walking)
+        {
+            if (!stepsSound.isPlaying)
+            {
+                stepsSound.pitch = 0.7f + Random.Range(-0.05f, 0.05f);
+                stepsSound.Play();
+            }
+        }
+        else if (stepsSound.isPlaying)
+        {
+            stepsSound.Stop();
         }
         jumpRequested = false;
 
@@ -233,6 +276,7 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Key"))
         {
             gameManager.AddKey(collision.gameObject);
+            keySound.Play();
             LoopManager lp = FindAnyObjectByType<LoopManager>();
             lp.keysGot++;
             Destroy(collision.gameObject);
@@ -277,6 +321,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator TeleportTransition(System.Action atPeak = null, System.Action afterFade = null)
     {
         isTeleporting = true;
+        teleportSound.Play();
         moveInput = Vector2.zero;
         rb.linearVelocity = Vector2.zero;
         rb.simulated = false;
@@ -297,6 +342,7 @@ public class PlayerController : MonoBehaviour
 
         rb.simulated = true;
         isTeleporting = false;
+        teleportSound.Stop();
         afterFade?.Invoke();
     }
 
