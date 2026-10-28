@@ -3285,8 +3285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 200d1415213d6ea4b939e74f2d350e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIAudioManager
-  hoverSound: {fileID: 8300000, guid: d4b2db088d6abe145b916eeeab5381d7, type: 3}
-  clickSound: {fileID: 8300000, guid: 1ccbd67a6f7057243b4fcd8fc2b1ad4e, type: 3}
+  hoverSound: {fileID: 8300000, guid: 1ccbd67a6f7057243b4fcd8fc2b1ad4e, type: 3}
+  clickSound: {fileID: 8300000, guid: d4b2db088d6abe145b916eeeab5381d7, type: 3}
   audioSource: {fileID: 1068553104}
 --- !u!82 &1068553104
 AudioSource:
