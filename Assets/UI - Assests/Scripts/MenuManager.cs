@@ -1,5 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -45,5 +45,10 @@ public class MenuManager : MonoBehaviour
         controlsPanel.SetActive(false);
         credictsPanel.SetActive(false);
         storyPanel.SetActive(true);
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("SampleScene");
     }
 }
