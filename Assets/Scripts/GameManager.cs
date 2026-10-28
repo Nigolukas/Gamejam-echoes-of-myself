@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
         {
             door.SetActive(false);
             doorC.portal.SetActive(true);
+            doorC.DoorSound.Play();
             return true;
         }
         else

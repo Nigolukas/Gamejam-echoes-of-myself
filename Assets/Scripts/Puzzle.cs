@@ -23,7 +23,11 @@ public class Puzzle : MonoBehaviour
 
     [Header("Cámara")]
     [SerializeField] private float focusDelay = 0.6f;  
-    [SerializeField] private float focusHold = 0.5f;   
+    [SerializeField] private float focusHold = 0.5f;
+
+    [Header("Sonido")]
+
+    [SerializeField] private AudioSource MechanismSound;
 
     private CameraFocus cameraFocus;
     private bool atEnd = false;
@@ -75,6 +79,7 @@ public class Puzzle : MonoBehaviour
 
     IEnumerator MovePlatform()
     {
+        if(MechanismSound != null) MechanismSound.Play();
         // La cámara va hacia la plataforma y espera a que llegue
         if (cameraFocus != null)
         {
@@ -111,7 +116,7 @@ public class Puzzle : MonoBehaviour
             yield return new WaitForSeconds(focusHold);
             cameraFocus.ReturnToPlayer();
         }
-
+        if (MechanismSound != null) MechanismSound.Stop();
         isMoving = false;
     }
 
@@ -125,7 +130,7 @@ public class Puzzle : MonoBehaviour
     IEnumerator MovePlatformButton()
     {
         isMoving = true;
-
+        if (MechanismSound != null) MechanismSound.Play();
         while (true)
         {
             Vector3 platformTarget = onButton ? platformEnd : platformStart;
@@ -145,7 +150,7 @@ public class Puzzle : MonoBehaviour
 
             yield return null;
         }
-
+        if (MechanismSound != null) MechanismSound.Stop();
         isMoving = false;
     }
 

@@ -20,6 +20,8 @@ public class ShadowController : MonoBehaviour
     private bool jumpRequested;
     private bool isGrounded;
 
+    
+
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();

@@ -10,6 +10,7 @@ TagManager:
   - Button
   - Portal
   - Shadow
+  - portal2
   layers:
   - Default
   - TransparentFX
