@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ScreenFade screenFade;
     private CameraFocus cameraFocus;
     private bool isTeleporting = false;
+    private bool gameOver = false;
 
     [Header("Ground check")]
     [SerializeField] private Transform groundCheck;
@@ -59,12 +60,19 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody2D>();
+        gameOver = false;
     }
 
     
 
     void Update()
     {
+        if (gameOver)
+        {
+            moveInput = Vector2.zero;
+            animator.SetFloat("SpeedX", 0f);
+            return;
+        }
         if (transform.position.y < -10 && !isTeleporting)
         {
             bool shadowHadControl = !hasControl;  
@@ -314,7 +322,11 @@ public class PlayerController : MonoBehaviour
                 LoopManager loopManager = FindAnyObjectByType<LoopManager>();
                 StartCoroutine(TeleportTransition(atPeak: () => loopManager.RestartLoop()));
             }
-
+        }
+        if (collision.CompareTag("portal2"))
+        {
+            gameOver = true;
+            teleportSound.Play();
         }
     }
 

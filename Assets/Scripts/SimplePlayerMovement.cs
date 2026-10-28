@@ -11,15 +11,23 @@ public class SimplePlayerMovement : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sprite;
 
+    private GameManager gameManager;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     void Update()
     {
+        if (gameManager.onDialogue == true)
+        {
+            anim.SetBool("isWalking", false);
+            return;
+        }
         float horizontal = 0f;
 
         if (autoMove)

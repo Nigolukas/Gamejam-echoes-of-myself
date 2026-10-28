@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: dacef4bef66544a4b9b85fa3499f3c1a
   - enabled: 1
-    path: Assets/Scenes/Sprites Implemented.unity
+    path: Assets/Scenes/Gameplay.unity
     guid: 9ea2e88eeea336d4e97f5efab093e426
+  - enabled: 1
+    path: Assets/Scenes/Escena Final.unity
+    guid: 1128055deec9d6e4cb158e229c75eca7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
