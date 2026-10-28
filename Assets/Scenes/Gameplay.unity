@@ -3850,6 +3850,7 @@ MonoBehaviour:
   - Bueno, en realidad quien quiere morir no?
   - Pero por protocolo debo preguntar, te gustaria vivir o morir?
   onDialogue: 0
+  nextAction: {fileID: 392368643174621059, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!4 &321978476
 Transform:
   m_ObjectHideFlags: 0
@@ -11337,9 +11338,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.27058825, g: 0.29411766, b: 0.48235294, a: 1}
+    m_PressedColor: {r: 0.16078432, g: 0.1764706, b: 0.34901962, a: 1}
+    m_SelectedColor: {r: 0.27058825, g: 0.29411766, b: 0.48235294, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -11403,7 +11404,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -448419336510017061, guid: 4e7d6ed4715db244287cf26b918f25c0, type: 3}
+  m_Sprite: {fileID: -8718699601870359987, guid: 57800ae588b1c8f4e8d06d1e65c500b5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

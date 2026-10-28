@@ -1,7 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     private int keys = 0;
@@ -24,11 +24,44 @@ public class GameManager : MonoBehaviour
     private Transform focusObject;
     private int focusLine = -1;
 
+    [Header("Input")]
+    [SerializeField] private InputActionReference nextAction;
+
     private void Awake()
     {
         cameraFocus = FindAnyObjectByType<CameraFocus>();
         //StartDialogueSequence(toRead);
     }
+
+    void OnEnable()
+    {
+        if (nextAction != null) nextAction.action.Enable();
+    }
+
+    void OnDisable()
+    {
+        if (nextAction != null) nextAction.action.Disable();
+    }
+
+    void Update()
+    {
+        if (!onDialogue || nextAction == null) return;
+        if (!nextAction.action.WasPressedThisFrame()) return;
+
+        if (typingRoutine != null)
+            FinishTyping();
+        else
+            SetNextDialogue();
+    }
+
+    private void FinishTyping()
+    {
+        StopCoroutine(typingRoutine);
+        typingRoutine = null;
+        DialogueText.maxVisibleCharacters = int.MaxValue;
+        if (typingAudio != null) typingAudio.Stop();
+    }
+
 
     public void AddKey(GameObject key)
     {
