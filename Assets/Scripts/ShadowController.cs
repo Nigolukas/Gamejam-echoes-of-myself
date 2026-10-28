@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -81,18 +82,16 @@ public class ShadowController : MonoBehaviour
         }
         if (collision.CompareTag("Button"))
         {
-            Puzzle pz = collision.GetComponent<Puzzle>();
-            pz.onButton = true;
-            pz.ActivateMechanismButton();
+            collision.GetComponent<Puzzle>().Press(gameObject);
+            if(collision.GetComponent<Animator>() != null)
+                collision.GetComponent<Animator>().SetTrigger("Pulsar");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Button"))
         {
-            Puzzle pz = collision.GetComponent<Puzzle>();
-            pz.onButton = false;
-            pz.ActivateMechanismButton();
+            collision.GetComponent<Puzzle>().Release(gameObject);
         }
     }
 }

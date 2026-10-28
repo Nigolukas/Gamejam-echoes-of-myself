@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     private int keys = 0;
     [SerializeField] private TextMeshProUGUI keyText;
 
+    [SerializeField] private AudioSource typingAudio;
     [SerializeField] private TextMeshProUGUI DialogueText;
     [SerializeField] private GameObject DialogueObject;
     [SerializeField] private float typeSpeed = 0.03f; // segundos por letra
@@ -137,14 +138,17 @@ public class GameManager : MonoBehaviour
             StopCoroutine(typingRoutine);
             typingRoutine = null;
         }
+        if (typingAudio != null) typingAudio.Stop();
         DialogueObject.SetActive(false);
     }
 
-    IEnumerator TypeText() //animacion de las letras
+    IEnumerator TypeText()
     {
         DialogueText.maxVisibleCharacters = 0;
         DialogueText.ForceMeshUpdate();
         int total = DialogueText.textInfo.characterCount;
+
+        if (typingAudio != null) typingAudio.Play();
 
         for (int i = 0; i <= total; i++)
         {
@@ -152,6 +156,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(typeSpeed);
         }
 
+        if (typingAudio != null) typingAudio.Stop();
         typingRoutine = null;
     }
 

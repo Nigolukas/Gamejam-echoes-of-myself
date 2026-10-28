@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         if (transform.position.y < -10 && !isTeleporting)
         {
             StartCoroutine(TeleportTransition(
-                afterFade: () => gameManager.SetDialogo("Es broma, el bucle, ¿recuerdas?")
+                afterFade: () => gameManager.SetDialogo("Es broma, el limbo, ¿recuerdas?")
             ));
         }
 
@@ -69,20 +69,15 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (playerInput.actions["Duplicate"].WasPressedThisFrame() && !isRecalling)
+        if (playerInput.actions["Duplicate"].WasPressedThisFrame() && !isRecalling && !isSwapping)
         {
             if (activeShadow == null) SpawnShadow();
             else StartCoroutine(RecallShadow());
         }
 
-        if (playerInput.actions["Change"].WasPressedThisFrame() && activeShadow != null && !isRecalling)
+        if (playerInput.actions["Change"].WasPressedThisFrame() && activeShadow != null && !isRecalling && !isSwapping)
         {
            StartCoroutine(SwapWithShadow());
-        }
-
-        if (playerInput.actions["Change"].WasPressedThisFrame())
-        {
-
         }
 
         if (!hasControl)
@@ -225,8 +220,12 @@ public class PlayerController : MonoBehaviour
         if (jumpRequested && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            animator.SetTrigger("Jump");
         }
         jumpRequested = false;
+
+        animator.SetBool("IsGrounded", isGrounded);
+        animator.SetFloat("VelocityY", rb.linearVelocity.y);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -234,6 +233,8 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Key"))
         {
             gameManager.AddKey(collision.gameObject);
+            LoopManager lp = FindAnyObjectByType<LoopManager>();
+            lp.keysGot++;
             Destroy(collision.gameObject);
         }
 
@@ -246,12 +247,21 @@ public class PlayerController : MonoBehaviour
         {
             Puzzle pz = collision.GetComponent<Puzzle>();
             pz.ActivateMechanism();
+            Animator animator = collision.GetComponent<Animator>();
+            if (animator.GetBool("Activada"))
+            {
+                animator.SetBool("Activada", false);
+            }
+            else
+            {
+                animator.SetBool("Activada", true);
+            }
         }
         if (collision.CompareTag("Button"))
         {
-            Puzzle pz = collision.GetComponent<Puzzle>();
-            pz.onButton = true;
-            pz.ActivateMechanismButton();
+            collision.GetComponent<Puzzle>().Press(gameObject);
+            if(collision.GetComponent<Animator>() != null)
+                collision.GetComponent<Animator>().SetBool("Pulsado", true);
         }
         if (collision.CompareTag("Portal"))
         {
@@ -294,9 +304,9 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Button"))
         {
-            Puzzle pz = collision.GetComponent<Puzzle>();
-            pz.onButton = false;
-            pz.ActivateMechanismButton(); 
+            collision.GetComponent<Puzzle>().Release(gameObject);
+            if (collision.GetComponent<Animator>() != null)
+                collision.GetComponent<Animator>().SetBool("Pulsado", false);
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Puzzle : MonoBehaviour
 {
@@ -28,7 +29,28 @@ public class Puzzle : MonoBehaviour
     private bool atEnd = false;
     private bool isMoving = false;
 
-    public bool onButton = false;
+    private readonly HashSet<GameObject> pressers = new HashSet<GameObject>();
+
+    public bool onButton
+    {
+        get
+        {
+            pressers.RemoveWhere(g => g == null);   // limpia sombras destruidas
+            return pressers.Count > 0;
+        }
+    }
+
+    public void Press(GameObject who)
+    {
+        pressers.Add(who);
+        ActivateMechanismButton();
+    }
+
+    public void Release(GameObject who)
+    {
+        pressers.Remove(who);
+        ActivateMechanismButton();
+    }
 
     private void Awake()
     {
